@@ -11,6 +11,7 @@
 void game();
 char *born_buffer();
 void free_buffer(char *buffer);
+int load_buffer(FILE *file, char *buffer);
 
 int main() {
     game();
@@ -25,14 +26,11 @@ void game() {
 
     while (c != 'q') {
         c = getchar();
-        switch (c) {
-            case '1':
-                if (file = fopen("1.txt", "r") != EOF) {
-                    if (load_buffer(file, buffer)) }
-                break;
-
-            default:
-                break;
+        if (c == '1') {
+            if (file = fopen("1.txt", "r") != EOF) {
+                if (load_buffer(file, buffer)) {
+                }
+            }
         }
     }
 }
