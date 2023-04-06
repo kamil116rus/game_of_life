@@ -80,4 +80,4 @@ int load_buffer(FILE *file, char **buffer) {
     return sum == SIZE_X * SIZE_Y ? 1 : 0;
 }
 
-void life(char *buffer);
+void life(char *buffer) {}
