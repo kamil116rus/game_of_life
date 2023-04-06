@@ -32,16 +32,13 @@ void game() {
                 if (file = fopen("1.txt", "r") != NULL) {
                     if (load_buffer(file, buffer)) {
                         life(buffer);
-                    } else {
+                    } else
                         printf("file is empty or invalid\n");
-                    }
-                } else {
+                } else
                     printf("no file\n");
-                }
             }
         }
         free_buffer(buffer);
-    } else {
+    } else
         printf("no memory\n");
-    }
 }
