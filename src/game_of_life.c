@@ -66,8 +66,9 @@ int load_buffer(FILE *file, char **buffer) {
     for (int i = 0; i < SIZE_Y; i++) {
         for (int j = 0; j < SIZE_X; j++) {
             char c = getchar();
-            if (c == '\n') break;
-            if (c == 'O') {
+            if (c == '\n')
+                break;
+            else if (c == 'O') {
                 buffer[i][j] = ' ';
                 sum++;
             } else if (c == ' ') {
@@ -76,7 +77,7 @@ int load_buffer(FILE *file, char **buffer) {
             }
         }
     }
-    return sum == 0 ? 1 : 0;
+    return sum == SIZE_X * SIZE_Y ? 1 : 0;
 }
 
 void life(char *buffer);
