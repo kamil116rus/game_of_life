@@ -1,8 +1,11 @@
 /* GAME OF LIFE*/
 
+#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>  // для паузы
+#include <stdlib.h>      // для system
+#include <sys/select.h>  // для kbhit
+#include <termios.h>     // для kbhit
+#include <unistd.h>      // для паузы
 
 #define SIZE_X 80
 #define SIZE_Y 25
@@ -149,7 +152,7 @@ int count_life(int a, int b, buffer) {
 int norm_i(int i) {
     if (i < 0)
         i += SIZE_Y;
-    else if (i > SIZE_Y)
+    else if (i >= SIZE_Y)
         i = i % SIZE_Y;
     return i;
 }
@@ -157,9 +160,16 @@ int norm_i(int i) {
 int norm_j(int j) {
     if (j < 0)
         j += SIZE_X;
-    else if (i > SIZE_X)
+    else if (i >= SIZE_X)
         j = j % SIZE_X;
     return j;
 }
 
-void control(char *c);
+void control(char *c, int *speed) {
+    system("stty -icanon crtkill");
+    while (kbhit() != 0) {
+        *c = tolower(getchar());
+        if (c == 'a') *speed -= STEP_SPEED;
+        if (c == 'z') *speed += STEP_SPEED;
+    }
+}
