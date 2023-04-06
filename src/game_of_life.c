@@ -185,3 +185,4 @@ void population(int *pop) {
             if (buffer[i][j] == 'o') *pop += 1;
         }
     }
+}
