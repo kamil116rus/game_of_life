@@ -19,6 +19,9 @@ int load_buffer(FILE *file, char **buffer);
 void draw(char **buffer);
 void life(char **buffer, char **buffer_old);
 void control(char *c);
+int count_life(int a, int b, buffer);
+int norm_i(int a, int i);
+int norm_j(int b, int j);
 
 int main() {
     intro();
@@ -110,5 +113,53 @@ void draw(char **buffer) {
     }
 }
 
-void life(char **buffer, char **buffer_old);
+// Функция основной логики игры
+void life(char **buffer, char **buffer_old) {
+    // перезаписываем в старый буфер
+    for (int i = 0; i < SIZE_Y; i++) {
+        for (int j = 0; j < SIZE_X; j++) {
+            buffer_old[i][j] = buffer[i][j];
+        }
+    }
+    // проходим по старому и записываем новый
+    for (int i = 0; i < SIZE_Y; i++) {
+        for (int j = 0; j < SIZE_X; j++) {
+            if (buffer_old[i][j] == ' ' && count_life(i, j, buffer_old) == 3) {
+                buffer[i][j] = 'o';
+            } else if (buffer_old[i][j] == 'o' && count_life(i, j, buffer_old) < 2 &&
+                       count_life(i, j, buffer_old) > 3) {
+                buffer[i][j] = ' ';
+            }
+        }
+    }
+}
+
+int count_life(int a, int b, buffer) {
+    int count = 0;
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            if (buffer[norm_i(a + i)][norm_j(b + j)] == 'o') {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+
+int norm_i(int i) {
+    if (i < 0)
+        i += SIZE_Y;
+    else if (i > SIZE_Y)
+        i = i % SIZE_Y;
+    return i;
+}
+
+int norm_j(int j) {
+    if (j < 0)
+        j += SIZE_X;
+    else if (i > SIZE_X)
+        j = j % SIZE_X;
+    return j;
+}
+
 void control(char *c);
