@@ -19,12 +19,13 @@ void game(char **buffer);
 char **born_buffer();
 void free_buffer(char *buffer);
 int load_buffer(FILE *file, char **buffer);
-void draw(char **buffer);
+void draw(char **buffer, int gen, int pop);
 void life(char **buffer, char **buffer_old);
 void control(char *c);
 int count_life(int a, int b, buffer);
 int norm_i(int a, int i);
 int norm_j(int b, int j);
+void population(int *pop);
 
 int main() {
     intro();
@@ -92,28 +93,32 @@ int load_buffer(FILE *file, char **buffer) {
 
 // game function
 void game(char *buffer) {
-    int memory;
+    int memory, int gen = 0, pop;
     char c = 'y';
     char *buffer_old = born_buffer();
     buffer_old != NULL ? memory = 1 : memory = 0;
     while (c != 'q' && memory == 1) {
         printf("\033[0d\033[2J");
-        draw(buffer);  //печать
+        population(*pop);
+        draw(buffer, gen, pop);  //печать
         life(buffer, buffer_old);
         control(&c);
 
         usleep(speed);
     }
+    if (memory == 1) free_buffer(buffer_old);
 }
 
 // Функцмя печати игрового поля
-void draw(char **buffer) {
+void draw(char **buffer, int gen, int pop) {
     for (int i = 0; i < SIZE_Y; i++) {
         for (int j = 0; j < SIZE_X; j++) {
             printf("%c", buffer[i][j]);
         }
         printf("\n");
     }
+    printf("Управление: \"A\" - speed UP,  \"Z\" - speed DOWN,  \"Q\" - QUIT. ");
+    printf(" Generation - %d,   population - %d \n", gen, pop);
 }
 
 // Функция основной логики игры
@@ -173,3 +178,10 @@ void control(char *c, int *speed) {
         if (c == 'z') *speed += STEP_SPEED;
     }
 }
+
+void population(int *pop) {
+    for (int i = 0; i < SIZE_Y; i++) {
+        for (int j = 0; j < SIZE_X; j++) {
+            if (buffer[i][j] == 'o') *pop += 1;
+        }
+    }
