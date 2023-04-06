@@ -100,6 +100,15 @@ void game(char *buffer) {
     }
 }
 
-void draw(char **buffer);
+// Функцмя печати игрового поля
+void draw(char **buffer) {
+    for (int i = 0; i < SIZE_Y; i++) {
+        for (int j = 0; j < SIZE_X; j++) {
+            printf("%c", buffer[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void life(char **buffer, char **buffer_old);
 void control(char *c);
