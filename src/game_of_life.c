@@ -39,7 +39,7 @@ void intro() {
     int memory_no = 0;
     char **buffer = born_buffer();
     if (buffer != NULL) memory_no = 1;
-    while (c != 'q' && memory_no == 1) {
+    while (file_number != 0 && memory_no == 1) {
         text();
         scanf("%d", &file_number);
         fflush(stdin);
