@@ -43,7 +43,7 @@ void intro() {
         text();
         c = getchar();
         if (c == '1') {
-            file == fopen("1.txt", "r");
+            file = fopen("1.txt", "r");
             if (file != NULL) {
                 if (load_buffer(file, buffer)) {
                     game(buffer);
@@ -78,7 +78,7 @@ int load_buffer(FILE *file, char **buffer) {
     int sum = 0;
     for (int i = 0; i < SIZE_Y; i++) {
         for (int j = 0; j < SIZE_X; j++) {
-            char c = getchar();
+            char c = fgetc(file);
             if (c == '\n')
                 break;
             else if (c == 'O') {
@@ -94,14 +94,14 @@ int load_buffer(FILE *file, char **buffer) {
 }
 
 // game function
-void game(char *buffer) {
-    int memory, int gen = 0, pop, speed = 150000;
+void game(char **buffer) {
+    int memory, gen = 0, pop, speed = 150000;
     char c = 'y';
-    char *buffer_old = born_buffer();
-    buffer_old != NULL ? memory = 1 : memory = 0;
+    char **buffer_old = born_buffer();
+    buffer_old != NULL ? memory = 1 : 0;
     while (c != 'q' && memory == 1) {
         printf("\033[0d\033[2J");
-        population(*pop, buffer);
+        population(&pop, buffer);
         draw(buffer, gen, pop);  //печать
         life(buffer, buffer_old);
         control(&c, &speed);
