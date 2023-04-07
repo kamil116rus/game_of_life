@@ -16,3 +16,7 @@ git:
 
 go:
 	./main
+
+creat: creat_files.c 
+	$(CC) $(FLAGS)  creat_files.c -o main
+	./main

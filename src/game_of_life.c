@@ -42,9 +42,11 @@ void intro() {
     while (c != 'q' && memory_no == 1) {
         text();
         c = getchar();
+        fflush(stdin);
         if (c == '1') {
             file = fopen("1.txt", "r");
             if (file != NULL) {
+                printf("файл открылся");
                 if (load_buffer(file, buffer)) {
                     game(buffer);
                 } else
@@ -79,17 +81,18 @@ int load_buffer(FILE *file, char **buffer) {
     for (int i = 0; i < SIZE_Y; i++) {
         for (int j = 0; j < SIZE_X; j++) {
             char c = fgetc(file);
-            if (c == '\n')
-                break;
-            else if (c == 'O') {
+            if (c == '\n') c = fgetc(file);
+            if (c == 'O') {
                 buffer[i][j] = ' ';
                 sum++;
-            } else if (c == ' ') {
+            }
+            if (c == ' ') {
                 buffer[i][j] = 'o';
                 sum++;
             }
         }
     }
+    printf("%d  -- %d \n", sum, SIZE_X * SIZE_Y);
     return sum == SIZE_X * SIZE_Y ? 1 : 0;
 }
 
@@ -137,8 +140,9 @@ void life(char **buffer, char **buffer_old) {
         for (int j = 0; j < SIZE_X; j++) {
             if (buffer_old[i][j] == ' ' && count_life(i, j, buffer_old) == 3) {
                 buffer[i][j] = 'o';
-            } else if (buffer_old[i][j] == 'o' && count_life(i, j, buffer_old) < 2 &&
-                       count_life(i, j, buffer_old) > 3) {
+            }
+            if (buffer_old[i][j] == 'o' &&
+                (count_life(i, j, buffer_old) < 2 || count_life(i, j, buffer_old) > 3)) {
                 buffer[i][j] = ' ';
             }
         }
@@ -150,11 +154,14 @@ int count_life(int a, int b, char **buffer) {
     int count = 0;
     for (int i = -1; i <= 1; i++) {
         for (int j = -1; j <= 1; j++) {
-            if (buffer[norm_i(a + i)][norm_j(b + j)] == 'o') {
-                count++;
+            if (i != 0 || j != 0) {
+                if (buffer[norm_i(a + i)][norm_j(b + j)] == 'o') {
+                    count++;
+                }
             }
         }
     }
+    // printf("%d ", count);
     return count;
 }
 
@@ -177,6 +184,7 @@ int norm_j(int j) {
 // Функция управления скоростью и выхода
 void control(char *c, int *speed) {
     system("stty -icanon crtkill");
+
     while (kbhit() != 0) {
         *c = tolower(getchar());
         if (*c == 'a') *speed -= STEP_SPEED;
@@ -186,6 +194,7 @@ void control(char *c, int *speed) {
 
 // Функция подсчета живых клеток
 void population(int *pop, char **buffer) {
+    *pop = 0;
     for (int i = 0; i < SIZE_Y; i++) {
         for (int j = 0; j < SIZE_X; j++) {
             if (buffer[i][j] == 'o') *pop += 1;
@@ -206,7 +215,7 @@ int kbhit() {  // Функция kbhit() возвращает истину, ес
 }
 
 void text() {
-    printf("\033[0d\033[2J");
+    // printf("\033[0d\033[2J");
     printf("\n\n\t\t Game of life\n\n\n");
     printf("Выберите начальный файл:\n");
     printf("1. Глайдер (Glider)\n");
