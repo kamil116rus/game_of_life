@@ -46,24 +46,46 @@ void intro() {
         if (file_number == 1) {
             file = fopen("1.txt", "r");
             if (file != NULL) {
-                load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
+                load_buffer(file, buffer) ? game(buffer) : printf("\n\n\tfile is empty or invalid\n");
             } else
                 printf("no file\n");
+            fclose(file);
         }
         if (file_number == 2) {
             file = fopen("2.txt", "r");
             if (file != NULL) {
-                load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
+                load_buffer(file, buffer) ? game(buffer) : printf("\n\n\tfile is empty or invalid\n");
             } else
                 printf("no file\n");
+            fclose(file);
         }
         if (file_number == 3) {
             file = fopen("3.txt", "r");
-            file != NULL ? load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n")
-                         : printf("no file\n");
+            if (file != NULL)
+                load_buffer(file, buffer) ? game(buffer) : printf("\n\n\tfile is empty or invalid\n");
+            else
+                printf("no file\n");
+            fclose(file);
+        }
+        if (file_number == 4) {
+            file = fopen("4.txt", "r");
+            if (file != NULL)
+                load_buffer(file, buffer) ? game(buffer) : printf("\n\n\tfile is empty or invalid\n");
+            else
+                printf("no file\n");
+            fclose(file);
+        }
+        if (file_number == 5) {
+            file = fopen("5.txt", "r");
+            if (file != NULL)
+                load_buffer(file, buffer) ? game(buffer) : printf("\n\n\tfile is empty or invalid\n");
+            else
+                printf("no file\n");
+
+            fclose(file);
         }
     }
-    free_buffer(buffer);
+    if (memory_no == 1) free_buffer(buffer);
 }
 
 //Функция создания матрицы
@@ -100,7 +122,7 @@ int load_buffer(FILE *file, char **buffer) {
             }
         }
     }
-    printf("%d  -- %d \n", sum, SIZE_X * SIZE_Y);
+    // printf("%d  -- %d \n", sum, SIZE_X * SIZE_Y);
     return sum == SIZE_X * SIZE_Y ? 1 : 0;
 }
 
@@ -116,7 +138,7 @@ void game(char **buffer) {
         draw(buffer, gen, pop);  //печать
         life(buffer, buffer_old);
         control(&c, &speed);
-
+        if (pop == 0) c = 'q';
         usleep(speed);
         gen++;
     }
@@ -227,4 +249,9 @@ void text() {
     printf("\n\n\t\t Game of life\n\n\n");
     printf("Выберите начальный файл:\n");
     printf("1. Глайдер (Glider)\n");
+    printf("2. Планерное ружьё Госпера (Gosper glider gun)\n");
+    printf("3. Долгожитель ()\n");
+    printf("4. Устойчивые фигуры и периодичные\n");
+    printf("5. Сделай сам(открываешь файл и ставишь пробел если нужна живая клетка)\n");
+    printf("0. Выход (exit)\n");
 }
