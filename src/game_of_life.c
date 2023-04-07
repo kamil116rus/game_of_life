@@ -46,7 +46,6 @@ void intro() {
         if (file_number == 1) {
             file = fopen("1.txt", "r");
             if (file != NULL) {
-                printf("файл открылся");
                 load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
             } else
                 printf("no file\n");
@@ -54,17 +53,15 @@ void intro() {
         if (file_number == 2) {
             file = fopen("2.txt", "r");
             if (file != NULL) {
-                printf("файл открылся");
                 load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
             } else
                 printf("no file\n");
         }
         if (file_number == 3) {
             file = fopen("3.txt", "r");
-            if (file != NULL) {
-                printf("файл открылся");
+            if (file != NULL)
                 load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
-            } else
+            else
                 printf("no file\n");
         }
     }
