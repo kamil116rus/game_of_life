@@ -215,7 +215,6 @@ int norm_j(int j) {
 // Функция управления скоростью и выхода
 void control(char *c, int *speed) {
     system("stty -icanon crtkill");
-
     while (kbhit() != 0) {
         *c = tolower(getchar());
         if (*c == 'a') *speed -= STEP_SPEED;
