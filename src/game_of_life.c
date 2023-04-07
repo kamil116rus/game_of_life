@@ -133,7 +133,6 @@ void game(char **buffer) {
     char **buffer_old = born_buffer();
     buffer_old != NULL ? memory = 1 : 0;
     while (c != 'q' && memory == 1) {
-        printf("\033[0d\033[2J");
         population(&pop, buffer);
         draw(buffer, gen, pop);  //печать
         life(buffer, buffer_old);
@@ -147,6 +146,7 @@ void game(char **buffer) {
 
 // Функцмя печати игрового поля
 void draw(char **buffer, int gen, int pop) {
+    printf("\033[0d\033[2J");
     for (int i = 0; i < SIZE_Y; i++) {
         for (int j = 0; j < SIZE_X; j++) {
             printf("%c", buffer[i][j]);
@@ -252,6 +252,6 @@ void text() {
     printf("2. Планерное ружьё Госпера (Gosper glider gun)\n");
     printf("3. Долгожитель ()\n");
     printf("4. Устойчивые фигуры и периодичные\n");
-    printf("5. Сделай сам(открываешь файл и ставишь пробел если нужна живая клетка)\n");
+    printf("5. Сделай сам(открываешь файл 5.txt и ставишь пробел если нужна живая клетка)\n");
     printf("0. Выход (exit)\n");
 }
