@@ -204,3 +204,10 @@ int kbhit() {  // Функция kbhit() возвращает истину, ес
     select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
     return FD_ISSET(STDIN_FILENO, &fds);
 }
+
+void text() {
+    printf("\033[0d\033[2J");
+    printf("\n\n\t\t Game of life\n\n\n");
+    printf("Выберите начальный файл:\n");
+    printf("1. Глайдер (Glider)\n");
+}
