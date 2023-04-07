@@ -35,22 +35,35 @@ int main() {
 
 void intro() {
     FILE *file;
-    char c;
+    int file_number;
     int memory_no = 0;
     char **buffer = born_buffer();
     if (buffer != NULL) memory_no = 1;
     while (c != 'q' && memory_no == 1) {
         text();
-        c = getchar();
+        scanf("%d", &file_number);
         fflush(stdin);
-        if (c == '1') {
+        if (file_number == 1) {
             file = fopen("1.txt", "r");
             if (file != NULL) {
                 printf("файл открылся");
-                if (load_buffer(file, buffer)) {
-                    game(buffer);
-                } else
-                    printf("file is empty or invalid\n");
+                load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
+            } else
+                printf("no file\n");
+        }
+        if (file_number == 2) {
+            file = fopen("2.txt", "r");
+            if (file != NULL) {
+                printf("файл открылся");
+                load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
+            } else
+                printf("no file\n");
+        }
+        if (file_number == 3) {
+            file = fopen("3.txt", "r");
+            if (file != NULL) {
+                printf("файл открылся");
+                load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
             } else
                 printf("no file\n");
         }
