@@ -59,10 +59,8 @@ void intro() {
         }
         if (file_number == 3) {
             file = fopen("3.txt", "r");
-            if (file != NULL)
-                load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n");
-            else
-                printf("no file\n");
+            file != NULL ? load_buffer(file, buffer) ? game(buffer) : printf("file is empty or invalid\n")
+                         : printf("no file\n");
         }
     }
     free_buffer(buffer);
