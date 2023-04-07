@@ -34,6 +34,7 @@ int main() {
 }
 
 void intro() {
+    printf("\033[0d\033[2J");
     FILE *file;
     int file_number;
     int memory_no = 0;

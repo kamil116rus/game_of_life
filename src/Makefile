@@ -20,3 +20,8 @@ go:
 creat: creat_files.c 
 	$(CC) $(FLAGS)  creat_files.c -o main
 	./main
+
+rebuild: clean all
+
+clean:
+	rm -rf main *.out 
