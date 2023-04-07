@@ -33,6 +33,7 @@ int main() {
     return 0;
 }
 
+// Функция выбора игры
 void intro() {
     printf("\033[0d\033[2J");
     FILE *file;
