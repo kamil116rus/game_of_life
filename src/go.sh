@@ -13,3 +13,5 @@ clang-format -i game_of_life.c
 git add . 
 git commit -m"$parametr1 $parametr2"
 git push origin main
+
+gcc -Wall -Werroe -Wextra game_of_life.c

@@ -7,8 +7,8 @@
 #include <termios.h>     // для kbhit
 #include <unistd.h>      // для паузы
 
-#define SIZE_X 80
-#define SIZE_Y 25
+#define SIZE_X 80  // размер поля по оси Х
+#define SIZE_Y 25  // размер поля по оси Y
 #define MAX_SPEED 20000
 #define MIN_SPEED 300000
 #define STEP_SPEED 10000

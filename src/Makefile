@@ -1,7 +1,7 @@
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
 
-all: sborka go
+all: clang sborka go
 
 sborka: game_of_life.c  
 	$(CC) $(FLAGS)  game_of_life.c -o main
